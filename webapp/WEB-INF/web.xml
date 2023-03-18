@@ -9,4 +9,10 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>NovaEmpresaServlet</display-name>
+    <servlet-name>NovaEmpresaServlet</servlet-name>
+    <servlet-class>gerenciador.servlet.NovaEmpresaServlet</servlet-class>
+  </servlet>
 </web-app>
