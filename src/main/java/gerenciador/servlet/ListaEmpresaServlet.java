@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ListaEmpresaServlet extends HttpServlet {
 	
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Banco banco = new Banco();
 		List<Empresa> lista = banco.getEmpresas();
