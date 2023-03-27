@@ -1,24 +1,21 @@
-package gerenciador.servlet;
+package gerenciador.acao;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import jakarta.servlet.RequestDispatcher;
+import gerenciador.modelo.Banco;
+import gerenciador.modelo.Empresa;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns="/novaEmpresa")
-public class NovaEmpresaServlet extends HttpServlet {
+public class NovaEmpresa {
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-	
-		String nomeEmpresa = request.getParameter("nome");
+	public void executa(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		
+String nomeEmpresa = request.getParameter("nome");
 		
 		String paramDataAbertura = request.getParameter("data");
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -37,8 +34,8 @@ public class NovaEmpresaServlet extends HttpServlet {
 		Banco banco = new Banco();
 		banco.adicionaEmpresa(empresa);
 		
-		response.sendRedirect("listaEmpresas");
-
+		response.sendRedirect("entrada?acao=ListaEmpresas");
+		
 	}
 
 }

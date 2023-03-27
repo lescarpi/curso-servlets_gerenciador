@@ -1,29 +1,24 @@
-package gerenciador.servlet;
+package gerenciador.acao;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
+import gerenciador.modelo.Banco;
+import gerenciador.modelo.Empresa;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns="/listaEmpresas")
-public class ListaEmpresaServlet extends HttpServlet {
-	
-	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+public class ListaEmpresas {
+
+	public void executa(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		Banco banco = new Banco();
 		List<Empresa> lista = banco.getEmpresas();
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/listaEmpresas.jsp");
 		request.setAttribute("listaEmpresas", lista);
 		rd.forward(request, response);
-		
 	}
-
+	
 }
