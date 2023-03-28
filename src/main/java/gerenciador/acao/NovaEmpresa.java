@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class NovaEmpresa {
 	
-	public void executa(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	public String executa(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 String nomeEmpresa = request.getParameter("nome");
 		
@@ -34,7 +34,7 @@ String nomeEmpresa = request.getParameter("nome");
 		Banco banco = new Banco();
 		banco.adicionaEmpresa(empresa);
 		
-		response.sendRedirect("entrada?acao=ListaEmpresas");
+		return "redirect:entrada?acao=ListaEmpresas";
 		
 	}
 
