@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="5.0">
-  <display-name>gerenciador</display-name>
-  <welcome-file-list>
-    <welcome-file>bem-vindo.html</welcome-file>
-  </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>NovaEmpresaServlet</display-name>
-    <servlet-name>NovaEmpresaServlet</servlet-name>
-    <servlet-class>gerenciador.servlet.NovaEmpresaServlet</servlet-class>
-  </servlet>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="https://jakarta.ee/xml/ns/jakartaee"
+	xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="5.0">
+	<display-name>gerenciador</display-name>
+	<welcome-file-list>
+		<welcome-file>bem-vindo.html</welcome-file>
+	</welcome-file-list>
+	
+	<servlet>
+		<description></description>
+		<display-name>NovaEmpresaServlet</display-name>
+		<servlet-name>NovaEmpresaServlet</servlet-name>
+		<servlet-class>gerenciador.servlet.NovaEmpresaServlet</servlet-class>
+	</servlet>
+	
+	<filter>
+		<filter-name>MF</filter-name>
+		<filter-class>gerenciador.servlet.MonitoramentoFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>MF</filter-name>
+		<url-pattern>/entrada</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>AF</filter-name>
+		<filter-class>gerenciador.servlet.AutorizacaoFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AF</filter-name>
+		<url-pattern>/entrada</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>CF</filter-name>
+		<filter-class>gerenciador.servlet.ControladorFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CF</filter-name>
+		<url-pattern>/entrada</url-pattern>
+	</filter-mapping>
+	
 </web-app>

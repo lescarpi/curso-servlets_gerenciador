@@ -3,27 +3,22 @@ package gerenciador.servlet;
 import java.io.IOException;
 
 import gerenciador.acao.Acao;
-import gerenciador.acao.EditaEmpresa;
-import gerenciador.acao.ListaEmpresas;
-import gerenciador.acao.MostraEmpresa;
-import gerenciador.acao.NovaEmpresa;
-import gerenciador.acao.NovaEmpresaForm;
-import gerenciador.acao.RemoveEmpresa;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
-public class UnicaEntradaServlet extends HttpServlet {
-
-	private static final long serialVersionUID = 1L;
+public class ControladorFilter implements Filter {
 
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
+
+		HttpServletRequest request = (HttpServletRequest) servletRequest;
+		HttpServletResponse response = (HttpServletResponse) servletResponse;
 
 		String paramAcao = request.getParameter("acao");
 		String nome;
@@ -42,7 +37,7 @@ public class UnicaEntradaServlet extends HttpServlet {
 		} else if (type.equals("redirect")) {
 			response.sendRedirect(nome);
 		}
-
+		
 	}
 
 }
