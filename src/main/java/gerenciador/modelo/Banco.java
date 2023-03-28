@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Banco {
 
-	private static List<Empresa> lista = new ArrayList<>();
+	private static List<Empresa> listaEmpresa = new ArrayList<>();
+	private static List<Usuario> listaUsuario = new ArrayList<>();
 	private static Integer chaveSequencial = 1;
 	
 	static {
@@ -16,17 +17,26 @@ public class Banco {
 		Empresa empresa2 = new Empresa();
 		empresa2.setId(chaveSequencial++);
 		empresa2.setNome("Fender");
-		lista.add(empresa1);
-		lista.add(empresa2);
+		listaEmpresa.add(empresa1);
+		listaEmpresa.add(empresa2);
+		
+		Usuario usuario1 = new Usuario();
+		usuario1.setLogin("lele");
+		usuario1.setSenha("123");
+		Usuario usuario2 = new Usuario();
+		usuario2.setLogin("xuxa");
+		usuario2.setSenha("543");
+		listaUsuario.add(usuario1);
+		listaUsuario.add(usuario2);
 	}
 	
 	public void adicionaEmpresa(Empresa empresa) {
 		empresa.setId(Banco.chaveSequencial++);
-		lista.add(empresa);
+		listaEmpresa.add(empresa);
 	}
 	
 	public void removeEmpresa(Integer id) {
-		Iterator<Empresa> it = lista.iterator();
+		Iterator<Empresa> it = listaEmpresa.iterator();
 		
 		while(it.hasNext()) {
 			Empresa empresa = it.next();
@@ -38,7 +48,7 @@ public class Banco {
 	}
 	
 	public Empresa buscaEmpresaPeloId(Integer id) {
-		for(Empresa empresa : lista) {
+		for(Empresa empresa : listaEmpresa) {
 			if(empresa.getId() == id) {
 				return empresa;
 			}
@@ -47,7 +57,16 @@ public class Banco {
 	}
 	
 	public List<Empresa> getEmpresas() {
-		return Banco.lista;
+		return Banco.listaEmpresa;
+	}
+	
+	public Usuario usuarioExiste(String login, String senha) {
+		for(Usuario usuario : listaUsuario) {
+			if (usuario.isEqual(login, senha)) {
+				return usuario;
+			}
+		}
+		return null;
 	}
 	
 }
