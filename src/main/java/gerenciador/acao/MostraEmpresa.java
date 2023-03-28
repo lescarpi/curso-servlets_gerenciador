@@ -8,8 +8,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class MostraEmpresa {
+public class MostraEmpresa implements Acao {
 
+	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 Integer idEmpresa = Integer.valueOf(request.getParameter("id"));

@@ -11,8 +11,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class NovaEmpresa {
+public class NovaEmpresa implements Acao {
 	
+	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 String nomeEmpresa = request.getParameter("nome");

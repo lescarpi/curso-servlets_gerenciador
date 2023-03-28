@@ -2,6 +2,7 @@ package gerenciador.servlet;
 
 import java.io.IOException;
 
+import gerenciador.acao.Acao;
 import gerenciador.acao.EditaEmpresa;
 import gerenciador.acao.ListaEmpresas;
 import gerenciador.acao.MostraEmpresa;
@@ -25,27 +26,14 @@ public class UnicaEntradaServlet extends HttpServlet{
 
 		String paramAcao = request.getParameter("acao");
 		
-		String nome = null;
-		if (paramAcao.equals("NovaEmpresa")) {
-			NovaEmpresa acao = new NovaEmpresa();
+		String nome;
+		try {
+			Acao acao = (Acao)Class.forName("gerenciador.acao."+paramAcao).newInstance();
 			nome = acao.executa(request, response);
-		} else if (paramAcao.equals("ListaEmpresas")) {
-			ListaEmpresas acao = new ListaEmpresas();
-			nome = acao.executa(request, response);
-		} else if (paramAcao.equals("MostraEmpresa")) {
-			MostraEmpresa acao = new MostraEmpresa();
-			nome = acao.executa(request, response);
-		} else if (paramAcao.equals("RemoveEmpresa")) {
-			RemoveEmpresa acao = new RemoveEmpresa();
-			nome = acao.executa(request, response);
-		} else if (paramAcao.equals("EditaEmpresa")) {
-			EditaEmpresa acao = new EditaEmpresa();
-			nome = acao.executa(request, response);
-		} else if (paramAcao.equals("NovaEmpresaForm")) {
-			NovaEmpresaForm acao = new NovaEmpresaForm();
-			nome = acao.executa(request, response);
+		} catch (Exception ex) {
+			throw new ServletException(ex);
 		}
-		
+
 		String type = nome.split(":")[0];
 		nome = nome.split(":")[1];
 		if(type.equals("forward")) {
