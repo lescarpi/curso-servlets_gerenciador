@@ -15,20 +15,30 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
-@WebServlet(urlPatterns="/entrada")
-public class UnicaEntradaServlet extends HttpServlet{
-	
+@WebServlet(urlPatterns = "/entrada")
+public class UnicaEntradaServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String paramAcao = request.getParameter("acao");
-		
+
+		HttpSession sessao = request.getSession();
+		boolean usuarioNaoEstaLogado = (sessao.getAttribute("usuarioLogado") == null);
+		boolean acaoProtegida = !(paramAcao.equals("LoginForm") | paramAcao.equals("Login"));
+		if (acaoProtegida && usuarioNaoEstaLogado) {
+			response.sendRedirect("entrada?acao=LoginForm");
+			return;
+		}
+
 		String nome;
 		try {
-			Acao acao = (Acao)Class.forName("gerenciador.acao."+paramAcao).newInstance();
+			Acao acao = (Acao) Class.forName("gerenciador.acao." + paramAcao).newInstance();
 			nome = acao.executa(request, response);
 		} catch (Exception ex) {
 			throw new ServletException(ex);
@@ -36,13 +46,13 @@ public class UnicaEntradaServlet extends HttpServlet{
 
 		String type = nome.split(":")[0];
 		nome = nome.split(":")[1];
-		if(type.equals("forward")) {
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/"+nome);
+		if (type.equals("forward")) {
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/" + nome);
 			rd.forward(request, response);
 		} else if (type.equals("redirect")) {
 			response.sendRedirect(nome);
 		}
-		
+
 	}
-	
+
 }

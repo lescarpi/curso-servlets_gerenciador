@@ -4,19 +4,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <html>
-	<body>
-		<c:if test="${not empty nomeEmpresa}">
-			Nova empresa ${ nomeEmpresa } cadastrada com sucesso!
-			<br/>
-			<br/>
-		</c:if>
-		Lista de empresas: <br />
-		<ul>
-			<c:forEach items="${listaEmpresas}" var = "empresa">
-				<li>${empresa.nome} - <fmt:formatDate value="${empresa.dataAbertura}" pattern="dd/MM/yyyy"/></li>
-				<a href="/gerenciador/entrada?acao=MostraEmpresa&id=${empresa.id}">Editar</a>
-				<a href="/gerenciador/entrada?acao=RemoveEmpresa&id=${empresa.id}">Remover</a>
-			</c:forEach>
-		</ul>
-	</body>
+<body>
+	<a href="entrada?acao=Logout">Sair</a>
+	<br />
+	<br /> Usuario logado: ${usuarioLogado.login}
+	<br />
+	<br /> Lista de empresas:
+	<br />
+	<ul>
+		<c:forEach items="${listaEmpresas}" var="empresa">
+			<li>${empresa.nome}- <fmt:formatDate
+					value="${empresa.dataAbertura}" pattern="dd/MM/yyyy" /></li>
+			<a href="/gerenciador/entrada?acao=MostraEmpresa&id=${empresa.id}">Editar</a>
+			<a href="/gerenciador/entrada?acao=RemoveEmpresa&id=${empresa.id}">Remover</a>
+		</c:forEach>
+	</ul>
+</body>
 </html>
